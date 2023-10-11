@@ -1,4 +1,3 @@
-
 # EAR (Enterprise architektury/Enterprise Architectures)
 
 **Code**: B6B36EAR <br>
@@ -15,7 +14,7 @@
 
 
 ## SP-0
-[Odkaz na SP-0](https://gitlab.fel.cvut.cz)
+[Odkaz na SP-0](https://docs.google.com/document/d/14vGMoigsrbZPbr9zINDyUlC-Hogl2UYbfx3yY1Gdrjg/)
 
 
 ## SP-1
