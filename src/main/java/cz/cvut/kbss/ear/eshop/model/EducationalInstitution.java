@@ -1,7 +1,6 @@
 package cz.cvut.kbss.ear.eshop.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

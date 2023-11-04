@@ -3,10 +3,8 @@ package cz.cvut.kbss.ear.eshop.dao;
 import cz.cvut.kbss.ear.eshop.model.EducationalInstitution;
 import cz.cvut.kbss.ear.eshop.exception.PersistenceException;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import java.util.List;
+import javax.persistence.*;
+import java.util.*;
 
 @Repository
 public class EducationalInstitutionDao extends BaseDao<EducationalInstitution> {

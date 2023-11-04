@@ -1,7 +1,6 @@
 package cz.cvut.kbss.ear.eshop.dao;
 
 import cz.cvut.kbss.ear.eshop.exception.PersistenceException;
-
 import javax.persistence.*;
 import java.util.*;
 

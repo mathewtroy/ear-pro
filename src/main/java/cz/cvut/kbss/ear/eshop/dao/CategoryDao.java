@@ -3,7 +3,6 @@ package cz.cvut.kbss.ear.eshop.dao;
 import cz.cvut.kbss.ear.eshop.model.Category;
 import cz.cvut.kbss.ear.eshop.exception.PersistenceException;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.*;
 import java.util.*;
 
