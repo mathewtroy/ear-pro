@@ -14,13 +14,12 @@ public class Book {
 
     @Basic(optional = false)
     @Column(nullable = false)
-    private int BooksReturned;
-    @Basic(optional = false)
-    @Column(nullable = false)
     private String Author;
-    @ManyToMany
-    @JoinColumn(nullable = false)
-    private List<Category> categories;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoryID")
+    private Category category;
+
+
     @Basic(optional = false)
     @Column(nullable = false)
     private String Title;
@@ -36,13 +35,6 @@ public class Book {
         BookID = bookID;
     }
 
-    public int getBooksReturned() {
-        return BooksReturned;
-    }
-
-    public void setBooksReturned(int booksReturned) {
-        BooksReturned = booksReturned;
-    }
 
     public String getAuthor() {
         return Author;
@@ -52,13 +44,14 @@ public class Book {
         Author = author;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setCategory(Category category) {
+        this.category = category;
     }
+
 
     public String getTitle() {
         return Title;
@@ -81,9 +74,8 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "BookID=" + BookID +
-                ", BooksReturned=" + BooksReturned +
                 ", Author='" + Author + '\'' +
-                ", categories=" + categories +
+                ", categories=" + category +
                 ", Title='" + Title + '\'' +
                 ", Status=" + Status +
                 '}';

@@ -12,6 +12,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -113,6 +114,13 @@ public class Client {
     public void setInstitutionID(int institutionID) {
         InstitutionID = institutionID;
     }
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public String getUserName() {
         return UserName;
@@ -141,7 +149,7 @@ public class Client {
                 ", phoneNumber=" + phoneNumber +
                 ", UserName='" + UserName + '\'' +
                 ", Password='" + Password + '\'' +
-                ", InstitutionID=" + InstitutionID +
+//                ", InstitutionID=" + InstitutionID +
                 '}';
     }
 }

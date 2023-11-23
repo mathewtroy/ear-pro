@@ -7,19 +7,17 @@ import java.time.LocalDateTime;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Reservation", query = "SELECT r FROM Reservation r")
+        @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r")
 })
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ReservationID;
 
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private LocalDateTime DateOfReservation;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private LocalDateTime ExpirationDate;
+    @Column(name = "dateofreservation", nullable = false)
+    private LocalDateTime dateOfReservation;
+    @Column(name = "expirationDate", nullable = false)
+    private LocalDateTime expirationDate;
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean Status;
@@ -40,19 +38,19 @@ public class Reservation {
     }
 
     public LocalDateTime getDateOfReservation() {
-        return DateOfReservation;
+        return dateOfReservation;
     }
 
     public void setDateOfReservation(LocalDateTime dateOfReservation) {
-        DateOfReservation = dateOfReservation;
+        this.dateOfReservation = dateOfReservation;
     }
+
 
     public LocalDateTime getExpirationDate() {
-        return ExpirationDate;
+        return this.expirationDate;
     }
-
     public void setExpirationDate(LocalDateTime expirationDate) {
-        ExpirationDate = expirationDate;
+        this.expirationDate = expirationDate;
     }
 
     public boolean isStatus() {
@@ -84,8 +82,8 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "ReservationID=" + ReservationID +
-                ", DateOfReservation=" + DateOfReservation +
-                ", ExpirationDate=" + ExpirationDate +
+                ", DateOfReservation=" + dateOfReservation +
+                ", ExpirationDate=" + expirationDate +
                 ", Status=" + Status +
                 ", client=" + client +
                 ", BookID=" + BookID +

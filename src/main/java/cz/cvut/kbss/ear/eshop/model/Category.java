@@ -10,8 +10,7 @@ import javax.persistence.*;
 @Entity
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int CategoryID;
+    private int categoryid;
     @Basic(optional = false)
     @Column(nullable = false)
     private String name;
@@ -27,7 +26,15 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
+                "categoryid = " +categoryid + "\'" +
                 "name='" + name + '\'' +
                 "}";
+    }
+
+    public int   getCategoryID() {
+        return categoryid;
+    }
+    public void   setCategoryID(int categoryid){
+        this.categoryid = categoryid;
     }
 }

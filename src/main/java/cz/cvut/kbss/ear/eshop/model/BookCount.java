@@ -1,5 +1,7 @@
 package cz.cvut.kbss.ear.eshop.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -13,15 +15,21 @@ public class BookCount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int BookCountID;
 
+    @JsonProperty("availablecount")
     @Basic(optional = false)
     @Column(nullable = false)
     private int AvailableCount;
 
+    @JsonProperty("dateupdated")
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime DateUpdated;
+
+    @JsonProperty("bookid")
     @OneToOne
     @JoinColumn(nullable = false)
     private Book BookID;
+
+    @JsonProperty("totalcount")
     @Basic(optional = false)
     @Column(nullable = false)
     private int TotalCount;

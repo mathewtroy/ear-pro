@@ -2,9 +2,13 @@ package cz.cvut.kbss.ear.eshop.dao;
 
 import cz.cvut.kbss.ear.eshop.model.Book;
 import cz.cvut.kbss.ear.eshop.exception.PersistenceException;
+import cz.cvut.kbss.ear.eshop.model.Category;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class BookDao extends BaseDao<Book> {

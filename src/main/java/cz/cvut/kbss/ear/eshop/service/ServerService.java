@@ -1,13 +1,15 @@
 package cz.cvut.kbss.ear.eshop.service;
 
 import cz.cvut.kbss.ear.eshop.dao.ServerDao;
+import cz.cvut.kbss.ear.eshop.model.Book;
+import cz.cvut.kbss.ear.eshop.model.Client;
 import cz.cvut.kbss.ear.eshop.model.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,13 +22,19 @@ public class ServerService {
     public ServerService(ServerDao serverDao) {
         this.serverDao = serverDao;
     }
-
+    @Transactional(readOnly = true)
+    public List<Server> findAll() {
+        return serverDao.findAll();
+    }
     @Transactional
     public void updateServerStatus(Server server, boolean newStatus) {
         server.setStatus(newStatus);
         serverDao.update(server);
     }
-
+    @Transactional
+    public void persist(Server server) {
+        serverDao.persist(server);
+    }
     @Transactional
     public List<Server> findServersByLocation(String location) {
         return serverDao.findByLocation(location);

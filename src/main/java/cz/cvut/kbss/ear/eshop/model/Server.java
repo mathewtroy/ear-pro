@@ -1,5 +1,7 @@
 package cz.cvut.kbss.ear.eshop.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -7,17 +9,28 @@ import java.time.LocalDateTime;
 @Entity
 public class Server {
     @Id
+    @JsonProperty("ipaddress")
     private long IPAddress;
 
+    @JsonProperty("capacity")
     private int Capacity;
+
+    @JsonProperty("currentload")
     @Basic(optional = false)
     @Column(nullable = false)
     private int CurrentLoad;
+
+    @JsonProperty("lastmaintenancedate")
     private LocalDateTime LastMaintenanceDate;
+
+    @JsonProperty("location")
     private String Location;
+
+    @JsonProperty("status")
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean Status;
+
 
     public long getIPAddress() {
         return IPAddress;
@@ -66,7 +79,6 @@ public class Server {
     public void setStatus(boolean status) {
         Status = status;
     }
-
 
     @Override
     public String toString() {

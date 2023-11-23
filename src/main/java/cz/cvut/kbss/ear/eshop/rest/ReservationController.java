@@ -1,5 +1,6 @@
 package cz.cvut.kbss.ear.eshop.rest;
 
+import cz.cvut.kbss.ear.eshop.model.Book;
 import cz.cvut.kbss.ear.eshop.model.Reservation;
 import cz.cvut.kbss.ear.eshop.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/reservation")
 public class ReservationController {
 
     private final ReservationService reservationService;
@@ -20,7 +21,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping
+    @GetMapping("/getall")
     public ResponseEntity<List<Reservation>> getAllReservations() {
         return ResponseEntity.ok(reservationService.findAll());
     }
@@ -33,7 +34,11 @@ public class ReservationController {
         }
         return ResponseEntity.ok(reservation);
     }
-
+    @PostMapping("/insert")
+    public ResponseEntity<Reservation> insertBook(@RequestBody Reservation reservation) {
+        reservationService.persist(reservation);
+        return ResponseEntity.ok(reservation);
+    }
     @PostMapping
     public ResponseEntity<Void> createReservation(@RequestBody Reservation reservation) {
         reservationService.persist(reservation);

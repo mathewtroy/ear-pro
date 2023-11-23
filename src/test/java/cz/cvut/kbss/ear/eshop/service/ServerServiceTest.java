@@ -81,7 +81,7 @@ public class ServerServiceTest {
     public void checkCapacityTest() {
         // Arrange
         Server server = new Server();
-        server.setCapacity(100);
+        server.setcapacity(100);
         server.setCurrentLoad(90);
 
         // Act

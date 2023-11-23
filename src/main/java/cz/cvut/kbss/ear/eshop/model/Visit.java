@@ -3,7 +3,7 @@ package cz.cvut.kbss.ear.eshop.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
-
+import java.time.Duration;
 
 @Entity
 @NamedQueries({
@@ -17,16 +17,14 @@ public class Visit {
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean BooksReturned;
-    @OneToMany
-    private List<Book> BooksTaken;
-
-    @Column(columnDefinition = "TIMESTAMP")
+    @OneToOne
+    @JoinColumn(nullable = false)
+    private Book BookID;
+    @Column(name = "dateofvisit", nullable = false)
     private LocalDateTime DateOfVisit;
+    @Column(name = "duration", nullable = false)
+    private String duration;
 
-    @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime Duration;
-
-    @Column(columnDefinition = "TIMESTAMP")
     private String Purpose;
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -48,12 +46,12 @@ public class Visit {
         BooksReturned = booksReturned;
     }
 
-    public List<Book> getBooksTaken() {
-        return BooksTaken;
+    public Book getBookID() {
+        return BookID;
     }
 
-    public void setBooksTaken(List<Book> booksTaken) {
-        BooksTaken = booksTaken;
+    public void setBookID(Book bookID) {
+        BookID = bookID;
     }
 
     public LocalDateTime getDateOfVisit() {
@@ -64,12 +62,12 @@ public class Visit {
         DateOfVisit = dateOfVisit;
     }
 
-    public LocalDateTime getDuration() {
-        return Duration;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setDuration(LocalDateTime duration) {
-        Duration = duration;
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getPurpose() {
@@ -94,9 +92,9 @@ public class Visit {
         return "Visit{" +
                 "VisitID=" + VisitID +
                 ", BooksReturned=" + BooksReturned +
-                ", BooksTaken=" + BooksTaken +
+                ", BooksTaken=" + BookID +
                 ", DateOfVisit=" + DateOfVisit +
-                ", Duration=" + Duration +
+                ", Duration=" + duration +
                 ", Purpose='" + Purpose + '\'' +
                 ", client=" + client +
                 '}';
