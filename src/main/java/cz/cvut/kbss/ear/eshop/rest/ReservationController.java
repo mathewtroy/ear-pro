@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +58,28 @@ public class ReservationController {
             }
         }
 
+        return ResponseEntity.ok(myReservations);
+    }
+    @GetMapping("/expiresoon")
+    public ResponseEntity<List<Reservation>> expiresoon() {
+        List<Reservation> reservations = reservationService.findAll();
+        List<Reservation> myReservations = new ArrayList<>();
+
+        if (reservations == null) {
+            return ResponseEntity.notFound().build();
+        }
+        LocalDateTime specificDate = LocalDate.of(2023, Month.DECEMBER, 1).atStartOfDay();
+
+        LocalDateTime oneWeekFromNow = specificDate.plus(1, ChronoUnit.WEEKS);
+
+        for (Reservation reservation : reservations) {
+            LocalDateTime expirationDate = reservation.getDateOfReservation();
+            if (expirationDate != null &&
+                    (expirationDate.isAfter(specificDate) || expirationDate.isEqual(specificDate)) &&
+                    expirationDate.isBefore(oneWeekFromNow)) {
+                myReservations.add(reservation);
+            }
+        }
         return ResponseEntity.ok(myReservations);
     }
 
