@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,6 +41,24 @@ public class ReservationController {
         }
         return ResponseEntity.ok(reservation);
     }
+    @GetMapping("/my/{id}")
+    public ResponseEntity<List<Reservation>> getMyReservations(@PathVariable int id) {
+        List<Reservation> allReservations = reservationService.findAll();
+        List<Reservation> myReservations = new ArrayList<>();
+
+        if (allReservations == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        for (Reservation reservation : allReservations) {
+            if (reservation.getClient().getID() == id) {
+                myReservations.add(reservation);
+            }
+        }
+
+        return ResponseEntity.ok(myReservations);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateReservation(@PathVariable int id, @RequestBody Reservation reservation) {
