@@ -19,15 +19,34 @@ public class BookCountController {
     public BookCountController(BookCountService bookCountService) {
         this.bookCountService = bookCountService;
     }
-    @GetMapping("/getall")
+    @GetMapping
     public ResponseEntity<List<BookCount>> getAllBooks() {
         return ResponseEntity.ok(bookCountService.findAll());
     }
 
-    @PostMapping("/insert")
+    @PostMapping
     public ResponseEntity<BookCount> insertBookCount(@RequestBody BookCount bookCount) {
         bookCountService.persist(bookCount);
         return ResponseEntity.ok(bookCount);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateReservation(@PathVariable int id, @RequestBody BookCount bookCount) {
+        if (bookCountService.find(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+        bookCount.setBookCountID(id);
+        bookCountService.update(bookCount);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReservation(@PathVariable int id) {
+        BookCount bookCount = bookCountService.find(id);
+        if (bookCount == null) {
+            return ResponseEntity.notFound().build();
+        }
+        bookCountService.remove(bookCount);
+        return ResponseEntity.noContent().build();
     }
 
 }

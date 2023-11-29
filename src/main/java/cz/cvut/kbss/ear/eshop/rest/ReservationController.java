@@ -21,11 +21,15 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping
     public ResponseEntity<List<Reservation>> getAllReservations() {
         return ResponseEntity.ok(reservationService.findAll());
     }
-
+    @PostMapping
+    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
+        reservationService.persist(reservation);
+        return ResponseEntity.ok(reservation);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Reservation> getReservationById(@PathVariable int id) {
         Reservation reservation = reservationService.find(id);
@@ -33,16 +37,6 @@ public class ReservationController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(reservation);
-    }
-    @PostMapping("/insert")
-    public ResponseEntity<Reservation> insertBook(@RequestBody Reservation reservation) {
-        reservationService.persist(reservation);
-        return ResponseEntity.ok(reservation);
-    }
-    @PostMapping
-    public ResponseEntity<Void> createReservation(@RequestBody Reservation reservation) {
-        reservationService.persist(reservation);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")

@@ -1,6 +1,7 @@
 package cz.cvut.kbss.ear.eshop.rest;
 
 import cz.cvut.kbss.ear.eshop.model.EducationalInstitution;
+import cz.cvut.kbss.ear.eshop.model.Reservation;
 import cz.cvut.kbss.ear.eshop.model.University;
 import cz.cvut.kbss.ear.eshop.service.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UniversityController {
         this.universityService = universityService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping
     public ResponseEntity<List<University>> getAllUniversities() {
         return ResponseEntity.ok(universityService.findAll());
     }
@@ -31,9 +32,19 @@ public class UniversityController {
         return university != null ? ResponseEntity.ok(university) : ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/insert")
+    @PostMapping
     public ResponseEntity<EducationalInstitution> insertUniversity(@RequestBody University university) {
         universityService.persist(university);
         return ResponseEntity.ok(university);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateReservation(@PathVariable int id, @RequestBody University university) {
+        if (universityService.find(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+        university.setInstitutionID(id);
+        universityService.update(university);
+        return ResponseEntity.noContent().build();
+    }
+
 }

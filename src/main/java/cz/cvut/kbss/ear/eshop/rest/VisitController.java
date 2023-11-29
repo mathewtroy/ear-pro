@@ -22,13 +22,32 @@ public class VisitController {
         this.visitService = visitService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping
     public ResponseEntity<List<Visit>> getAllReservations() {
         return ResponseEntity.ok(visitService.findAll());
     }
-    @PostMapping("/insert")
+    @PostMapping
     public ResponseEntity<Visit> insertBook(@RequestBody Visit visit) {
         visitService.persist(visit);
         return ResponseEntity.ok(visit);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateReservation(@PathVariable int id, @RequestBody Visit visit) {
+        if (visitService.find(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+        visit.setVisitID(id);
+        visitService.update(visit);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReservation(@PathVariable int id) {
+        Visit visit = visitService.find(id);
+        if (visit == null) {
+            return ResponseEntity.notFound().build();
+        }
+        visitService.remove(visit);
+        return ResponseEntity.noContent().build();
     }
 }

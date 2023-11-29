@@ -1,6 +1,7 @@
 package cz.cvut.kbss.ear.eshop.rest;
 
 import cz.cvut.kbss.ear.eshop.model.Book;
+import cz.cvut.kbss.ear.eshop.model.Client;
 import cz.cvut.kbss.ear.eshop.model.Server;
 import cz.cvut.kbss.ear.eshop.service.ServerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,14 @@ public class ServerController {
     public ServerController(ServerService serverService) {
         this.serverService = serverService;
     }
-    @GetMapping("/getall")
+    @GetMapping
     public ResponseEntity<List<Server>> getAllBooks() {
         return ResponseEntity.ok(serverService.findAll());
     }
 
-    @PostMapping("/insert")
+    @PostMapping
     public ResponseEntity<Server> insertServer(@RequestBody Server server) {
         serverService.persist(server);
         return ResponseEntity.ok(server);
     }
-
 }
