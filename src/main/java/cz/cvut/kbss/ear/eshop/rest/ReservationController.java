@@ -1,11 +1,15 @@
 package cz.cvut.kbss.ear.eshop.rest;
 
+import cz.cvut.kbss.ear.eshop.dao.ClientDao;
 import cz.cvut.kbss.ear.eshop.model.Book;
+import cz.cvut.kbss.ear.eshop.model.Client;
 import cz.cvut.kbss.ear.eshop.model.Reservation;
 import cz.cvut.kbss.ear.eshop.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -18,12 +22,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/reservation")
 public class ReservationController {
-
     private final ReservationService reservationService;
+    private final ClientDao clientDao;
 
     @Autowired
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService, ClientDao clientDao) {
         this.reservationService = reservationService;
+        this.clientDao = clientDao;
     }
 
     @GetMapping
@@ -44,7 +49,7 @@ public class ReservationController {
         return ResponseEntity.ok(reservation);
     }
     @GetMapping("/my/{id}")
-    public ResponseEntity<List<Reservation>> getMyReservations(@PathVariable int id) {
+    public ResponseEntity<List<Reservation>> getReservationByUserId(@PathVariable int id) {
         List<Reservation> allReservations = reservationService.findAll();
         List<Reservation> myReservations = new ArrayList<>();
 
@@ -57,9 +62,23 @@ public class ReservationController {
                 myReservations.add(reservation);
             }
         }
-
         return ResponseEntity.ok(myReservations);
     }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<Reservation>> getMyReservations() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+
+        Client client = clientDao.findByUserName(currentUserName);
+        if (client == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        List<Reservation> myReservations = reservationService.findByClientId(client.getID());
+        return ResponseEntity.ok(myReservations);
+    }
+
     @GetMapping("/expiresoon")
     public ResponseEntity<List<Reservation>> expiresoon() {
         List<Reservation> reservations = reservationService.findAll();

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -31,6 +32,13 @@ public class ReservationService {
     @Transactional(readOnly = true)
     public List<Reservation> findByStatus(boolean status) {
         return reservationDao.findByStatus(status);
+    }
+
+    public List<Reservation> findByClientId(int clientId) {
+        return reservationDao.findAll()
+                .stream()
+                .filter(reservation -> reservation.getClient() != null && reservation.getClient().getID() == clientId)
+                .collect(Collectors.toList());
     }
 
     @Transactional

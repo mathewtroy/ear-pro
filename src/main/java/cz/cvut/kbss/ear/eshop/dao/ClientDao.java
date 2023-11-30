@@ -27,5 +27,18 @@ public class ClientDao extends BaseDao<Client> {
             throw new PersistenceException(e);
         }
     }
+    public Client findByUserName(String userName) {
+        try {
+            TypedQuery<Client> query = em.createQuery("SELECT c FROM Client c WHERE c.UserName = :userName", Client.class);
+            query.setParameter("userName", userName);
+            List<Client> clients = query.getResultList();
+            if (clients.isEmpty()) {
+                return null;
+            }
+            return clients.get(0);
+        } catch (RuntimeException e) {
+            throw new PersistenceException(e);
+        }
+    }
 
 }

@@ -1,7 +1,10 @@
 package cz.cvut.kbss.ear.eshop;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import cz.cvut.kbss.ear.eshop.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,23 +17,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final CustomAuthenticationProvider customAuthenticationProvider;
+
+    @Autowired
+    public SecurityConfig(@Lazy CustomAuthenticationProvider customAuthenticationProvider) {
+        this.customAuthenticationProvider = customAuthenticationProvider;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("ear")
-                .password(passwordEncoder().encode("ear"))
-                .roles("USER");
+        auth.authenticationProvider(customAuthenticationProvider);
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/client/insert").permitAll()
-                .antMatchers(HttpMethod.POST, "/book/insert").permitAll()
-                .antMatchers(HttpMethod.POST, "/category/insert").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
