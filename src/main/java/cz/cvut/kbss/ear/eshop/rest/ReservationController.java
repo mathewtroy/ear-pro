@@ -69,7 +69,6 @@ public class ReservationController {
     public ResponseEntity<List<Reservation>> getMyReservations() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-
         Client client = clientDao.findByUserName(currentUserName);
         if (client == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -101,7 +100,11 @@ public class ReservationController {
         }
         return ResponseEntity.ok(myReservations);
     }
-
+    @GetMapping("/count/book/{bookId}")
+    public ResponseEntity<Long> getCountOfReservationsByBookId(@PathVariable int bookId) {
+        long count = reservationService.countReservationsByBookId(bookId);
+        return ResponseEntity.ok(count);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateReservation(@PathVariable int id, @RequestBody Reservation reservation) {

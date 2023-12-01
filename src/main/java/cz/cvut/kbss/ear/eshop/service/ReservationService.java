@@ -40,6 +40,12 @@ public class ReservationService {
                 .filter(reservation -> reservation.getClient() != null && reservation.getClient().getID() == clientId)
                 .collect(Collectors.toList());
     }
+    public long countReservationsByBookId(int bookId) {
+        return reservationDao.findAll()
+                .stream()
+                .filter(reservation -> reservation.getBookID() != null && reservation.getBookID().getBookID() == bookId)
+                .count();
+    }
 
     @Transactional
     public void persist(Reservation reservation) {
