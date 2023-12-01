@@ -37,11 +37,7 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Book> insertBook(@RequestBody Book book) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        Client client = clientDao.findByUserName(currentUserName);
-        Role adminRole = Role.ADMIN;
-        if (client.getRole() != adminRole) {
+        if (checkAccess() == false){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         bookService.persist(book);
@@ -49,11 +45,7 @@ public class BookController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateBook(@PathVariable int id, @RequestBody Book book) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        Client client = clientDao.findByUserName(currentUserName);
-        Role adminRole = Role.ADMIN;
-        if (client.getRole() != adminRole) {
+        if (checkAccess() == false){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         if (bookService.find(id) == null) {
@@ -66,11 +58,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable int id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        Client client = clientDao.findByUserName(currentUserName);
-        Role adminRole = Role.ADMIN;
-        if (client.getRole() != adminRole) {
+        if (checkAccess() == false){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         Book book = bookService.find(id);
@@ -79,5 +67,17 @@ public class BookController {
         }
         bookService.remove(book);
         return ResponseEntity.noContent().build();
+    }
+
+
+    public boolean checkAccess(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        Client client = clientDao.findByUserName(currentUserName);
+        Role adminRole = Role.ADMIN;
+        if (client.getRole() != adminRole) {
+            return false;
+        }
+        return true;
     }
 }

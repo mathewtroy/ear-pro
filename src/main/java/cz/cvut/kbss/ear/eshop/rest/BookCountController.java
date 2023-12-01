@@ -34,11 +34,7 @@ public class BookCountController {
 
     @PostMapping
     public ResponseEntity<BookCount> insertBookCount(@RequestBody BookCount bookCount) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        Client client = clientDao.findByUserName(currentUserName);
-        Role adminRole = Role.ADMIN;
-        if (client.getRole() != adminRole) {
+        if (checkAccess() == false){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         bookCountService.persist(bookCount);
@@ -46,11 +42,7 @@ public class BookCountController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateReservation(@PathVariable int id, @RequestBody BookCount bookCount) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        Client client = clientDao.findByUserName(currentUserName);
-        Role adminRole = Role.ADMIN;
-        if (client.getRole() != adminRole) {
+        if (checkAccess() == false){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         if (bookCountService.find(id) == null) {
@@ -63,11 +55,7 @@ public class BookCountController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable int id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        Client client = clientDao.findByUserName(currentUserName);
-        Role adminRole = Role.ADMIN;
-        if (client.getRole() != adminRole) {
+        if (checkAccess() == false){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         BookCount bookCount = bookCountService.find(id);
@@ -76,6 +64,16 @@ public class BookCountController {
         }
         bookCountService.remove(bookCount);
         return ResponseEntity.noContent().build();
+    }
+    public boolean checkAccess(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        Client client = clientDao.findByUserName(currentUserName);
+        Role adminRole = Role.ADMIN;
+        if (client.getRole() != adminRole) {
+            return false;
+        }
+        return true;
     }
 
 }
