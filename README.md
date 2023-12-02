@@ -37,8 +37,8 @@ Celkově jsme získali cenné znalosti a dovednosti v oblasti architektur enterp
 [Zpráva o projektu](https://docs.google.com/document/d/1rwqgYGbP4OYigE2Ize8_L24xMrdSRWpR/)
 
 ## :label: Contacts
-**Cvičící:** Petr Aubrecht
-**Zpracovali:** 
+**Cvičící:** Petr Aubrecht<br><br>
+**Zpracovali:** <br>
 Aleksandr Kross [📧](<krossale@fel.czut.cz>) <br>
 Mikhailo Kononenko [📧](<kononmi1@fel.cvut.cz>) <br>
 
