@@ -7,12 +7,7 @@
 
 # :label: Semestrální projekt z předmětu Enterprise architektury (B6B36EAR)
 
-## Cvičící: Petr Aubrecht
-## Zpracovali: Aleksandr Kross, Mikhailo Kononenko  
-[**Email of Aleksandr Kross**](<krossale@fel.czut.cz>) <br>
-[**Email of Mikhailo Kononenko**](<kononmi1@fel.cvut.cz>) <br>
-
-
+# :label: Téma semestrální práce: Private Library
 
 ## :label: Zkušenosti získané během SP
 <details><summary> Show more </summary>
@@ -36,4 +31,17 @@ Celkově jsme získali cenné znalosti a dovednosti v oblasti architektur enterp
 
 ## :label: SP-2
 [Odkaz na SP-2](https://gitlab.fel.cvut.cz/krossale/ear-sp)
+
+
+## :label: Documents
+[Zpráva o projektu](https://docs.google.com/document/d/1rwqgYGbP4OYigE2Ize8_L24xMrdSRWpR/)
+
+## :label: Contacts
+**Cvičící:** Petr Aubrecht
+**Zpracovali:** 
+Aleksandr Kross [📧](<krossale@fel.czut.cz>) <br>
+Mikhailo Kononenko [📧](<kononmi1@fel.cvut.cz>) <br>
+
+
+
 
