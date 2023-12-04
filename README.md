@@ -9,6 +9,24 @@
 
 # :label: Téma semestrální práce: Private Library
 
+# :label: Spouštění
+
+**1.Stahnout zdrojový kód aplikace z repozitáře:** <br>
+`git clone https://gitlab.fel.cvut.cz/krossale/ear-sp.git`<br>
+
+**2.Spustit v IntelliJ IDEA příkaz pro sestavení a balení projektu:** <br>
+`mvn clean install`<br>
+
+**3.Otevřit příkazový řádek a spustit příkaz pro docker:** <br>
+`docker pull postgres`<br>
+
+**4.Spustit soubor docker-compose.yml:** <br>
+`run docker-file`<br>
+
+**4.Spustit Main.java:** <br>
+`run java main`
+
+
 ## :label: Zkušenosti získané během SP
 <details><summary> Show more </summary>
 
