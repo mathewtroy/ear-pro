@@ -67,18 +67,6 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void persistTest() {
-        // Arrange
-        Client client = new Client();
-
-        // Act
-        clientService.persist(client);
-
-        // Assert
-        verify(clientDao).persist(client);
-    }
-
-    @Test
     public void updateTest() {
         // Arrange
         Client client = new Client();

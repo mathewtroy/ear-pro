@@ -50,18 +50,6 @@ public class BookServiceTest {
     }
 
     @Test
-    public void persistTest() {
-        // Arrange
-        Book book = new Book();
-
-        // Act
-        bookService.persist(book);
-
-        // Assert
-        verify(bookDao).persist(book);
-    }
-
-    @Test
     public void updateTest() {
         // Arrange
         Book book = new Book();

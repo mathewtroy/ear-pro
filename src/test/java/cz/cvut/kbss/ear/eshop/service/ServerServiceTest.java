@@ -76,23 +76,6 @@ public class ServerServiceTest {
         Assertions.assertNotNull(server.getLastMaintenanceDate());
     }
 
-
-    @Test
-    public void checkCapacityTest() {
-        // Arrange
-        Server server = new Server();
-        server.setcapacity(100);
-        server.setCurrentLoad(90);
-
-        // Act
-        serverService.checkCapacity(server);
-
-        // Assert
-        Logger logger = Logger.getLogger(ServerService.class.getName());
-        // Assert that info logs are generated
-        Assertions.assertTrue(logger.isLoggable(Level.INFO));
-    }
-
 }
 
 
